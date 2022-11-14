@@ -64,7 +64,7 @@ Setting up the frontend is similar to that of backend.
 ```
 $ cd ta-management/frontend
 $ npm install
-$ npm run build
+$ npm run build --legacy-peer-deps
 $ npm run start
 ```
 A successful completion of these steps will automatically open up a new browser window with a landing page.
