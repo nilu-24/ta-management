@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import { User, emptyUser } from "./classes/User";
 import LoggedOut from "./pages/LoggedOut";
+import Register from "./pages/Register";
 
 interface UserProviderProps {
   user: User;
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/logout" element={<LoggedOut />} />
+          <Route path = "/register" element = {<Register/>}/>
         </Routes>
       </Router>
     </UserContext.Provider>

@@ -5,26 +5,28 @@ import { UserContext } from "../App";
 import "../App.css";
 import "../style/login.css";
 
-const Login: React.FC = () => {
+const Register: React.FC = () => {
   // Load global state
   const { user, setUser } = useContext(UserContext);
 
   // Declare hooks
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [userType, setUserType] = useState<string>("");
   const navigate = useNavigate();
   const [error, setError] = useState("");
-
 
   // on submit pass email and password values entered by user
   const submitHandler = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     // error if empty email or password
-    if (!email || !password) {
+    if (!email || !password || !firstName || !lastName || !userType) {
       // error if user does not enter username and/or password
-      console.error("Please provide your username and password.");
-      setError("Please provide your username and password.");
+      console.error("Please provide all your credentials.");
+      setError("Please provide all your credentials.");
       return;
     }
 
@@ -32,15 +34,18 @@ const Login: React.FC = () => {
       // Make login API call
       // CAUTION: Do not hardcode the URLs, instead use routers
       const res = await fetch(
-        "http://127.0.0.1:3000/api/users/login",
+        "http://127.0.0.1:3000/api/users/register",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+              firstName:firstName,
+              lastName:lastName,
             email: email,
             password: password,
+            userType:userType
           }),
         }
       );
@@ -68,10 +73,33 @@ const Login: React.FC = () => {
           <div className="form-inner">
             <img className="logo" src={logo} alt="mcgill-logo" />
 
-            <p className="top">Sign in with your email and password.</p>
+            <p className="top">Register with your email and password.</p>
             {error !== "" ? <div className="error"> * {error} </div> : ""}
 
+
+             <div className="form-group">
+              <input
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                id="firstName"
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            </div>
+
             <div className="form-group">
+              <input
+                type="text"
+                name="lastName"
+                placeholder="Last Name"
+                id="lastName"
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </div>
+
+
+            <div className="form-group">
+
               <input
                 type="text"
                 name="email"
@@ -91,14 +119,32 @@ const Login: React.FC = () => {
               />
             </div>
 
+            <div className="form-group">
+              <input
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                id="firstName"
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            </div>
+
+
             <div className="sign-in-button">
               <input type="submit" value="Sign in" />
             </div>
 
+            {console.log({
+              firstName, 
+              lastName,
+              email,
+              password,
+              userType
+            })}
 
             <p className="bottom">
-              <Link className="links" to="/register">
-                Register
+              <Link className="links" to="/login">
+                Login
               </Link>
             </p>
           </div>
@@ -108,4 +154,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default Register;
