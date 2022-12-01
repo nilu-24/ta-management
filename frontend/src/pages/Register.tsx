@@ -14,7 +14,7 @@ const Register: React.FC = () => {
   const [lastName, setLastName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [userType, setUserType] = useState<string>("");
+  const [userType, setUserType] = useState<string[]>([]);
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
@@ -51,7 +51,7 @@ const Register: React.FC = () => {
       );
 
       // If login was successful, set user and redirect to home page
-      if (res.status === 200) {
+      if (res.status === 201) {
         const result = await res.json();
         // set user state
         setUser(result);
@@ -122,10 +122,10 @@ const Register: React.FC = () => {
             <div className="form-group">
               <input
                 type="text"
-                name="firstName"
-                placeholder="First Name"
-                id="firstName"
-                onChange={(e) => setFirstName(e.target.value)}
+                name="userType"
+                placeholder="Enter User Type"
+                id="userType"
+                onChange={(e) => setUserType([e.target.value])}
               />
             </div>
 
